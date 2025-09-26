@@ -101,9 +101,29 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 
 if DATABASE_URL:
     # Use dj-database-url to parse the DATABASE_URL
-    DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL)
-    }
+    try:
+        db_config = dj_database_url.parse(DATABASE_URL)
+        # Ensure ENGINE is set for MySQL
+        if 'mysql' in DATABASE_URL.lower():
+            db_config['ENGINE'] = 'django.db.backends.mysql'
+        DATABASES = {
+            'default': db_config
+        }
+    except Exception:
+        # Fallback to individual variables if parsing fails
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.mysql',
+                'NAME': os.environ.get('DB_NAME', 'defaultdb'),
+                'USER': os.environ.get('DB_USER', 'avnadmin'),
+                'PASSWORD': os.environ.get('DB_PASSWORD', 'AVNS_w7crSywcVW3KILn1uOd'),
+                'HOST': os.environ.get('DB_HOST', 'mysql-13402d28-oreoluwadavid08-780a.g.aivencloud.com'),
+                'PORT': os.environ.get('DB_PORT', '15819'),
+                'OPTIONS': {
+                    'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+                },
+            }
+        }
 else:
     # Fallback to individual environment variables
     DATABASES = {

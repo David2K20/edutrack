@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: django-student-management
+    name: student-management-system
     env: python
     buildCommand: "./build.sh"
     startCommand: "gunicorn django_project.wsgi:application"
@@ -13,7 +13,7 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: ALLOWED_HOSTS
-        value: django-student-management.onrender.com
+        value: student-management-system.onrender.com
       - key: DB_NAME
         value: defaultdb
       - key: DB_USER
