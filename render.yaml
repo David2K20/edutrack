@@ -15,12 +15,12 @@ services:
       - key: ALLOWED_HOSTS
         value: student-management-system.onrender.com
       - key: DB_NAME
-        value: defaultdb
+        value: postgres
       - key: DB_USER
-        value: avnadmin
+        value: postgres
       - key: DB_PASSWORD
-        sync: false  # This will need to be set manually in Render dashboard
+        sync: false  # Set your Supabase database password here
       - key: DB_HOST
-        value: mysql-13402d28-oreoluwadavid08-780a.g.aivencloud.com
+        value: db.qdxuzbtqnvhjpcfdykse.supabase.co
       - key: DB_PORT
-        value: 15819
+        value: 5432

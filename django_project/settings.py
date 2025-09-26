@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
-import dj_database_url
 from pathlib import Path
 from django.core.wsgi import get_wsgi_application
 
@@ -96,49 +95,20 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# Database configuration with environment variables
-DATABASE_URL = os.environ.get('DATABASE_URL')
-
-if DATABASE_URL:
-    # Use dj-database-url to parse the DATABASE_URL
-    try:
-        db_config = dj_database_url.parse(DATABASE_URL)
-        # Ensure ENGINE is set for MySQL
-        if 'mysql' in DATABASE_URL.lower():
-            db_config['ENGINE'] = 'django.db.backends.mysql'
-        DATABASES = {
-            'default': db_config
-        }
-    except Exception:
-        # Fallback to individual variables if parsing fails
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.mysql',
-                'NAME': os.environ.get('DB_NAME', 'defaultdb'),
-                'USER': os.environ.get('DB_USER', 'avnadmin'),
-                'PASSWORD': os.environ.get('DB_PASSWORD', 'AVNS_w7crSywcVW3KILn1uOd'),
-                'HOST': os.environ.get('DB_HOST', 'mysql-13402d28-oreoluwadavid08-780a.g.aivencloud.com'),
-                'PORT': os.environ.get('DB_PORT', '15819'),
-                'OPTIONS': {
-                    'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-                },
-            }
-        }
-else:
-    # Fallback to individual environment variables
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ.get('DB_NAME', 'defaultdb'),
-            'USER': os.environ.get('DB_USER', 'avnadmin'),
-            'PASSWORD': os.environ.get('DB_PASSWORD', 'AVNS_w7crSywcVW3KILn1uOd'),
-            'HOST': os.environ.get('DB_HOST', 'mysql-13402d28-oreoluwadavid08-780a.g.aivencloud.com'),
-            'PORT': os.environ.get('DB_PORT', '15819'),
-            'OPTIONS': {
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            },
-        }
+# Database configuration - Supabase PostgreSQL
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME', 'postgres'),
+        'USER': os.environ.get('DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', ''),  # Set in environment
+        'HOST': os.environ.get('DB_HOST', ''),  # Your Supabase host
+        'PORT': os.environ.get('DB_PORT', '5432'),
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
