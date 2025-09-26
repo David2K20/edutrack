@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: django-student-management
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn django_project.wsgi:application"
+    plan: free
+    environmentVariables:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DEBUG
+        value: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: django-student-management.onrender.com
+      - key: DB_NAME
+        value: defaultdb
+      - key: DB_USER
+        value: avnadmin
+      - key: DB_PASSWORD
+        sync: false  # This will need to be set manually in Render dashboard
+      - key: DB_HOST
+        value: mysql-13402d28-oreoluwadavid08-780a.g.aivencloud.com
+      - key: DB_PORT
+        value: 15819
