@@ -2,11 +2,27 @@
 # exit on error
 set -o errexit
 
+echo "Starting build process..."
+
 # Install dependencies
+echo "Installing Python dependencies..."
 pip install -r requirements.txt
 
+# Verify Django is installed and working
+echo "Verifying Django installation..."
+python -c "import django; print(f'Django version: {django.get_version()}')"
+
+# Verify our project structure
+echo "Checking project structure..."
+ls -la
+ls -la django_project/
+
 # Collect static files
+echo "Collecting static files..."
 python manage.py collectstatic --noinput
 
 # Run migrations
+echo "Running database migrations..."
 python manage.py migrate
+
+echo "Build completed successfully!"

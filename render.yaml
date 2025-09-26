@@ -3,7 +3,7 @@ services:
     name: student-management-system
     env: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn django_project.wsgi:application"
+    startCommand: "python -m gunicorn --bind 0.0.0.0:$PORT django_project.wsgi:application"
     plan: free
     environmentVariables:
       - key: PYTHON_VERSION
