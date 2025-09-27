@@ -24,4 +24,8 @@ python manage.py collectstatic --noinput
 echo "Running database migrations..."
 python manage.py migrate
 
+# Ensure admin user exists
+echo "Creating/updating admin user..."
+python manage.py ensure_admin_user
+
 echo "Build completed successfully for Render!"

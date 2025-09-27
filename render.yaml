@@ -5,8 +5,18 @@ services:
     buildCommand: "./build.sh"
     startCommand: "gunicorn --bind 0.0.0.0:$PORT django_project.wsgi:application"
     plan: free
+    disk:
+      name: sqlite-data
+      mountPath: /var/data
+      sizeGB: 1
     environmentVariables:
       - key: SECRET_KEY
         generateValue: true
       - key: PYTHON_VERSION
         value: "3.11.0"
+      - key: DJANGO_ADMIN_USERNAME
+        value: "admin"
+      - key: DJANGO_ADMIN_EMAIL
+        value: "admin@edutrack.com"
+      - key: DJANGO_ADMIN_PASSWORD
+        generateValue: true
