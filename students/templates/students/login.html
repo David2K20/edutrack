@@ -7,12 +7,10 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Fallback in case inline style is stripped */
         body {
-            background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            height: 100vh;
+            background-color: #f8f9fa;
+            min-height: 100vh;
         }
         .card {
             border-radius: 15px;
@@ -31,7 +29,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed; min-height: 100vh;">
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
