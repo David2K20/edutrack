@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from pathlib import Path
-from django.core.wsgi import get_wsgi_application
 
 # import pymysql
 # pymysql.install_as_MySQLdb()
@@ -89,8 +88,6 @@ TEMPLATES = [
     },
 ]
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_project.settings')
-application = get_wsgi_application()
 WSGI_APPLICATION = 'django_project.wsgi.application'
 
 
