@@ -18,9 +18,19 @@ from django.contrib import admin
 from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
+from django.http import HttpResponse
+
+def favicon(request):
+    # Return a simple 1x1 transparent PNG
+    response = HttpResponse(
+        b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x06\x00\x00\x00\x1f\x15\xc4\x89\x00\x00\x00\nIDATx\x9cc\x00\x01\x00\x00\x05\x00\x01\r\n-\xdb\x00\x00\x00\x00IEND\xaeB`\x82',
+        content_type='image/png'
+    )
+    return response
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('favicon.ico', favicon),
     path('', include('students.urls')),
 ]
 

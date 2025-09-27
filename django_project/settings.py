@@ -35,9 +35,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-g&p0t33!2954##3$dm@n0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False  # Hardcoded for production
 
-# Hardcoded for Render deployment
-ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1', 'edutrack-1-yje3.onrender.com']
-CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'https://edutrack-1-yje3.onrender.com']
+# Hardcoded for Vercel deployment
+ALLOWED_HOSTS = ['.vercel.app', 'localhost', '127.0.0.1', '.now.sh']
+CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app', 'https://*.now.sh']
 
 
 # Application definition
@@ -154,10 +154,14 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Where collectstatic will put files
+# Add static files directories if they exist
+if os.path.isdir(os.path.join(BASE_DIR, 'static')):
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+# For Vercel deployment with WhiteNoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Default primary key field type
