@@ -97,13 +97,19 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 # Database configuration - Supabase PostgreSQL
+# Debug: Print environment variables (remove in production)
+print(f"DEBUG - DB_HOST: {os.environ.get('DB_HOST', 'NOT SET')}")
+print(f"DEBUG - DB_NAME: {os.environ.get('DB_NAME', 'NOT SET')}")
+print(f"DEBUG - DB_USER: {os.environ.get('DB_USER', 'NOT SET')}")
+print(f"DEBUG - DB_PASSWORD: {'SET' if os.environ.get('DB_PASSWORD') else 'NOT SET'}")
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME', 'postgres'),
         'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', ''),  # Set in environment
-        'HOST': os.environ.get('DB_HOST', ''),  # Your Supabase host
+        'PASSWORD': os.environ.get('DB_PASSWORD', '1234567$'),  # Fallback for testing
+        'HOST': os.environ.get('DB_HOST', 'db.qdxuzbtqnvhjpcfdykse.supabase.co'),  # Fallback
         'PORT': os.environ.get('DB_PORT', '5432'),
         'OPTIONS': {
             'sslmode': 'require',
