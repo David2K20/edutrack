@@ -94,20 +94,21 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# Database configuration - Hardcoded Supabase PostgreSQL values
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': '1234567$',
-        'HOST': 'db.qdxuzbtqnvhjpcfdykse.supabase.co',
-        'PORT': '5432',
-        'OPTIONS': {
-            'sslmode': 'require',
-        },
+# Database configuration with environment variable support
+if os.environ.get('DATABASE_URL'):
+    # Production database (Vercel with PostgreSQL)
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-}
+else:
+    # Development/local database (SQLite)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
