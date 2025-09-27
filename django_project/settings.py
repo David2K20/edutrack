@@ -33,10 +33,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-g&p0t33!2954##3$dm@n09y!=+&tja=-ch*e(v@85d=&97oj9+')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
+DEBUG = False  # Hardcoded for production
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',') if os.environ.get('ALLOWED_HOSTS') else []
-CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',') if os.environ.get('CSRF_TRUSTED_ORIGINS') else []
+# Hardcoded for Render deployment
+ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1', 'edutrack-1-yje3.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'https://edutrack-1-yje3.onrender.com']
 
 
 # Application definition
@@ -96,21 +97,15 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# Database configuration - Supabase PostgreSQL
-# Debug: Print environment variables (remove in production)
-print(f"DEBUG - DB_HOST: {os.environ.get('DB_HOST', 'NOT SET')}")
-print(f"DEBUG - DB_NAME: {os.environ.get('DB_NAME', 'NOT SET')}")
-print(f"DEBUG - DB_USER: {os.environ.get('DB_USER', 'NOT SET')}")
-print(f"DEBUG - DB_PASSWORD: {'SET' if os.environ.get('DB_PASSWORD') else 'NOT SET'}")
-
+# Database configuration - Hardcoded Supabase PostgreSQL values
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'postgres'),
-        'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', '1234567$'),  # Fallback for testing
-        'HOST': os.environ.get('DB_HOST', 'db.qdxuzbtqnvhjpcfdykse.supabase.co'),  # Fallback
-        'PORT': os.environ.get('DB_PORT', '5432'),
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': '1234567$',
+        'HOST': 'db.qdxuzbtqnvhjpcfdykse.supabase.co',
+        'PORT': '5432',
         'OPTIONS': {
             'sslmode': 'require',
         },

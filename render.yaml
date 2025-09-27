@@ -6,23 +6,5 @@ services:
     startCommand: "python -m gunicorn --bind 0.0.0.0:$PORT django_project.wsgi:application"
     plan: free
     environmentVariables:
-      - key: PYTHON_VERSION
-        value: 3.11.0
-      - key: DEBUG
-        value: false
       - key: SECRET_KEY
         generateValue: true
-      - key: ALLOWED_HOSTS
-        value: .onrender.com,localhost,127.0.0.1
-      - key: DB_NAME
-        value: postgres
-      - key: DB_USER
-        value: postgres
-      - key: DB_PASSWORD
-        value: 1234567$
-      - key: DB_HOST
-        value: db.qdxuzbtqnvhjpcfdykse.supabase.co
-      - key: DB_PORT
-        value: 5432
-      - key: CSRF_TRUSTED_ORIGINS
-        value: https://*.onrender.com
