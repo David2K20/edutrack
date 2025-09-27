@@ -94,13 +94,11 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# SQLite database for Render deployment with persistent storage
-# Use persistent disk path if available (Render), otherwise local path
-db_path = os.environ.get('RENDER_SERVICE_NAME') and '/var/data/db.sqlite3' or BASE_DIR / 'db.sqlite3'
+# Hardcoded SQLite database (simple setup)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': db_path,
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
