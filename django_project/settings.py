@@ -34,9 +34,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-g&p0t33!2954##3$dm@n0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False  # Hardcoded for production
 
-# Hardcoded for Vercel deployment
-ALLOWED_HOSTS = ['.vercel.app', 'localhost', '127.0.0.1', '.now.sh']
-CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app', 'https://*.now.sh']
+# Hardcoded for Render deployment
+ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com']
 
 
 # Application definition
@@ -94,21 +94,13 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# Database configuration with environment variable support
-if os.environ.get('DATABASE_URL'):
-    # Production database (Vercel with PostgreSQL)
-    import dj_database_url
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+# Hardcoded SQLite database for Render deployment
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    # Development/local database (SQLite)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -159,7 +151,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 if os.path.isdir(os.path.join(BASE_DIR, 'static')):
     STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-# For Vercel deployment with WhiteNoise
+# For Render deployment with WhiteNoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Default primary key field type
