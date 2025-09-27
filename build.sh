@@ -16,6 +16,10 @@ python -c "import django; print('Django version:', django.get_version())"
 echo "Checking project structure..."
 ls -la
 
+# Ensure media directory exists for uploads
+echo "Ensuring media directory exists..."
+mkdir -p media
+
 # Collect static files
 echo "Collecting static files..."
 python manage.py collectstatic --noinput

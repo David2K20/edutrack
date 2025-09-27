@@ -1,10 +1,19 @@
-{% extends "students/base.html "%}
+{% extends "students/base.html" %}
 
 {% block body%}
     <h3 class="text-center m-4">Add Student</h3>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-danger m-4" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
     {% if success %}
-        <div class="alert alert-dark m-4" role="alert">
-            New student added succesfully.
+        <div class="alert alert-success m-4" role="alert">
+            New student added successfully.
             <a href="{% url 'index' %}" class="alert-link">Go to Home page.</a>
         </div>
     {% else %}

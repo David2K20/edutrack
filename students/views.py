@@ -72,11 +72,18 @@ def add(request):
     if request.method == 'POST':
         form = StudentForm(request.POST, request.FILES)  # Include request.FILES
         if form.is_valid():
-            new_student = form.save()  
-            return render(request, 'students/add.html', {
-                'form': StudentForm(),
-                'success': True
-            })
+            try:
+                new_student = form.save()  
+                return render(request, 'students/add.html', {
+                    'form': StudentForm(),
+                    'success': True
+                })
+            except Exception as e:
+                # If save fails, add error message
+                messages.error(request, f"Error saving student: {str(e)}")
+        else:
+            # Form is not valid, add error message
+            messages.error(request, "Please correct the errors below.")
     else:
         form = StudentForm()
     return render(request, 'students/add.html', {
